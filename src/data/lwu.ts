@@ -19,9 +19,12 @@ export const ebooks: Ebook[] = [
   { id: "leadership-handbook", title: "Practical Leadership Handbook", author: "Dimas Hartono", category: "Self Development", pages: 102, fileType: "PDF", tone: "orange", owned: true, price: 79000 },
   { id: "negotiation-guide", title: "Effective Negotiation Guide", author: "Maya Kusuma", category: "Self Development", pages: 74, fileType: "PDF", tone: "violet", owned: true, price: 69000 },
   { id: "emotional-intelligence-book", title: "Building Emotional Intelligence", author: "Raka Pratama", category: "Self Development", pages: 96, fileType: "PDF", tone: "rose", owned: true, price: 75000 },
-  { id: "interview-answer-guide", title: "Winning Job Interview Answers", author: "Alya Putri", category: "Business English", pages: 68, fileType: "PDF", tone: "sky", owned: false, price: 59000 },
-  { id: "presentation-playbook", title: "The Presentation Playbook", author: "Fajar Nugraha", category: "Self Development", pages: 82, fileType: "PDF", tone: "orange", owned: false, price: 65000 },
-  { id: "productive-habits", title: "Productive Habits Workbook", author: "Nisa Rahma", category: "Self Development", pages: 90, fileType: "PDF", tone: "violet", owned: false, price: 55000 },
+  { id: "british-american-international", title: "British vs American English Ebook (International Buyers)", author: "Learning With Us", category: "English Learning", pages: 72, fileType: "PDF", tone: "sky", owned: false, price: 79000 },
+  { id: "british-american-indonesian", title: "British vs American English Ebook (Indonesian Buyers)", author: "Learning With Us", category: "English Learning", pages: 72, fileType: "PDF", tone: "mint", owned: false, price: 59000 },
+  { id: "comic-international", title: "Comic (International Buyers)", author: "Learning With Us", category: "Comic", pages: 48, fileType: "PDF", tone: "rose", owned: false, price: 49000 },
+  { id: "comic-translation-indonesian", title: "Comic & Translation (Indonesian Buyers)", author: "Learning With Us", category: "Comic", pages: 64, fileType: "PDF", tone: "violet", owned: false, price: 59000 },
+  { id: "comic-english-indonesian", title: "Comic - Only English (Indonesian Buyers)", author: "Learning With Us", category: "Comic", pages: 48, fileType: "PDF", tone: "navy", owned: false, price: 39000 },
+  { id: "scholarship-database", title: "Ebook Database Beasiswa (Indonesian Buyers)", author: "Learning With Us", category: "Scholarship", pages: 110, fileType: "PDF", tone: "orange", owned: false, price: 69000 },
 ];
 
 export const purchases: Purchase[] = [

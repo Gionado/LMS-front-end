@@ -23,7 +23,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
     <div>
       <Breadcrumbs current="Course Details" />
       <Link href="/courses" className="mb-5 inline-flex items-center gap-2 text-sm font-bold text-[#155EAA] hover:underline">
-        <ArrowLeft size={16} />Back to My Courses
+        <ArrowLeft size={16} />Back to Courses
       </Link>
 
       <section className={`relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br ${tone.gradient} p-6 text-white sm:p-9`}>

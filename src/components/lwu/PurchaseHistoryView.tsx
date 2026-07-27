@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Download, Eye, PackageCheck, ReceiptText, Search, WalletCards, X } from "lucide-react";
+import { Download, PackageCheck, ReceiptText, Search, WalletCards, X } from "lucide-react";
 import { formatRupiah, purchases } from "@/data/lwu";
 import { getDemoPurchases } from "@/lib/demoPurchase";
 import type { Purchase } from "@/types/lwu";
+import { CustomSelect } from "./CustomSelect";
 
 const statusStyle = {
   Successful: "bg-emerald-50 text-emerald-700 ring-emerald-600/10",
@@ -58,12 +59,31 @@ export function PurchaseHistoryView() {
 
       <div className="mt-5 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-[minmax(0,1fr)_160px_160px]">
         <label className="relative"><span className="sr-only">Search purchases</span><Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm outline-none focus:border-sky-400 focus:bg-white focus:ring-2 focus:ring-sky-100" placeholder="Search transactions" /></label>
-        <label className="relative"><span className="sr-only">Filter purchase status</span><select value={status} onChange={(event) => setStatus(event.target.value)} className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white pl-3 pr-10 text-sm font-medium text-slate-600 outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100"><option>All status</option><option>Successful</option><option>Pending</option><option>Refunded</option></select><ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} /></label>
-        <label className="relative"><span className="sr-only">Filter product type</span><select value={type} onChange={(event) => setType(event.target.value)} className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white pl-3 pr-10 text-sm font-medium text-slate-600 outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100"><option>All products</option><option>Course</option><option>Ebook</option></select><ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} /></label>
+        <CustomSelect label="Filter purchase status" value={status} options={["All status", "Successful", "Pending", "Refunded"]} onChange={setStatus} />
+        <CustomSelect label="Filter product type" value={type} options={["All products", "Course", "Ebook"]} onChange={setType} />
       </div>
 
       <div className="mt-5 overflow-hidden rounded-xl border border-slate-200 bg-white">
-        <div className="overflow-x-auto"><table className="w-full min-w-[900px] text-left"><thead className="border-b border-slate-200 bg-slate-50 text-[10px] font-semibold uppercase tracking-[.1em] text-slate-500"><tr><th className="px-5 py-4">Invoice</th><th className="px-5 py-4">Product</th><th className="px-5 py-4">Type</th><th className="px-5 py-4">Date</th><th className="px-5 py-4">Amount</th><th className="px-5 py-4">Status</th><th className="px-5 py-4 text-right">Action</th></tr></thead><tbody className="divide-y divide-slate-100 text-sm">{filtered.map((purchase) => <tr key={purchase.id} className="hover:bg-slate-50"><td className="px-5 py-4 font-medium text-[#155EAA]">{purchase.invoice}</td><td className="max-w-[240px] px-5 py-4"><p className="truncate font-medium text-slate-700">{purchase.productName}</p></td><td className="px-5 py-4 text-slate-500">{purchase.productType}</td><td className="px-5 py-4 text-slate-500">{purchase.purchaseDate}</td><td className="px-5 py-4 font-medium text-slate-700">{formatRupiah(purchase.amount)}</td><td className="px-5 py-4"><span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold ring-1 ring-inset ${statusStyle[purchase.status]}`}>{purchase.status}</span></td><td className="px-5 py-4 text-right"><button onClick={() => setSelected(purchase)} className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium text-[#155EAA] hover:bg-sky-50"><Eye size={14} />Details</button></td></tr>)}</tbody></table></div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[900px] text-left">
+            <thead className="border-b border-[#C8D8E8] bg-[#EAF2F8] text-[10px] font-bold uppercase tracking-[.1em] text-[#0B2D5C]">
+              <tr><th className="px-5 py-4">Invoice</th><th className="px-5 py-4">Product</th><th className="px-5 py-4">Type</th><th className="px-5 py-4">Date</th><th className="px-5 py-4">Amount</th><th className="px-5 py-4">Status</th><th className="px-5 py-4 text-left">Action</th></tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-sm">
+              {filtered.map((purchase) => (
+                <tr key={purchase.id} tabIndex={0} aria-label={`View details for ${purchase.invoice}`} onClick={() => setSelected(purchase)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setSelected(purchase); } }} className="cursor-pointer transition hover:bg-sky-50/70 focus-visible:bg-sky-50 focus-visible:outline-none">
+                  <td className="px-5 py-4 font-medium text-[#155EAA]">{purchase.invoice}</td>
+                  <td className="max-w-[240px] px-5 py-4"><p className="truncate font-medium text-slate-700">{purchase.productName}</p></td>
+                  <td className="px-5 py-4 text-slate-500">{purchase.productType}</td>
+                  <td className="px-5 py-4 text-slate-500">{purchase.purchaseDate}</td>
+                  <td className="px-5 py-4 font-medium text-slate-700">{formatRupiah(purchase.amount)}</td>
+                  <td className="px-5 py-4"><span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold ring-1 ring-inset ${statusStyle[purchase.status]}`}>{purchase.status}</span></td>
+                  <td className="px-5 py-4 text-left"><button onClick={(event) => { event.stopPropagation(); setSelected(purchase); }} className="text-xs font-semibold text-[#155EAA] underline decoration-[#155EAA]/35 underline-offset-4 hover:decoration-[#155EAA]">Details</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {!filtered.length && <div className="py-14 text-center"><ReceiptText className="mx-auto text-slate-300" size={36} /><h2 className="mt-3 font-semibold text-[#0B2D5C]">No transactions found</h2><p className="mt-1 text-sm text-slate-500">Try another search or filter.</p></div>}
         <div className="border-t border-slate-100 px-5 py-4 text-xs text-slate-500">{filtered.length} of {records.length} transactions</div>
       </div>

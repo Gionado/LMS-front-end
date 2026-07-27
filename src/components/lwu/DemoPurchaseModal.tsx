@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { CheckCircle2, ChevronDown, ShoppingCart, X } from "lucide-react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ShoppingCart, X } from "lucide-react";
 import { formatRupiah } from "@/data/lwu";
-import { completeDemoPurchase, type DemoProduct } from "@/lib/demoPurchase";
+import type { DemoProduct } from "@/lib/demoPurchase";
 
-export function DemoPurchaseModal({ product, onClose, onPurchased }: { product: DemoProduct | null; onClose: () => void; onPurchased: (product: DemoProduct, ownedKeys: string[]) => void }) {
-  const [payment, setPayment] = useState("E-wallet");
+export function DemoPurchaseModal({ product, onClose }: { product: DemoProduct | null; onClose: () => void }) {
+  const router = useRouter();
 
   useEffect(() => {
     if (!product) return;
@@ -18,8 +19,8 @@ export function DemoPurchaseModal({ product, onClose, onPurchased }: { product: 
   if (!product) return null;
 
   const confirm = () => {
-    const ownedKeys = completeDemoPurchase(product);
-    onPurchased(product, ownedKeys);
+    const params = new URLSearchParams({ type: product.type, id: product.id });
+    router.push(`/payment?${params.toString()}`);
   };
 
   return (
@@ -35,13 +36,7 @@ export function DemoPurchaseModal({ product, onClose, onPurchased }: { product: 
           <p className="mt-2 text-xl font-bold text-[#0B2D5C]">{formatRupiah(product.price)}</p>
         </div>
 
-        <label className="mt-5 block text-sm font-medium text-slate-700">
-          Payment method
-          <span className="relative mt-2 block"><select value={payment} onChange={(event) => setPayment(event.target.value)} className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-white pl-3 pr-10 text-sm text-slate-600 outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100"><option>E-wallet</option><option>Bank transfer</option><option>Virtual account</option></select><ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} /></span>
-        </label>
-
-        <div className="mt-4 flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-700"><CheckCircle2 size={15} />Frontend demo - no real payment.</div>
-        <button type="button" onClick={confirm} className="mt-5 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#0B2D5C] text-sm font-semibold text-white hover:bg-[#155EAA]"><ShoppingCart size={16} />Confirm Purchase</button>
+        <button type="button" onClick={confirm} className="mt-5 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#0B2D5C] text-sm font-semibold text-white hover:bg-[#155EAA]"><ShoppingCart size={16} />Continue to Payment</button>
       </div>
     </div>
   );
