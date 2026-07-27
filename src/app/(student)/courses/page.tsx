@@ -3,4 +3,4 @@ import { Breadcrumbs } from "@/components/lwu/Breadcrumbs";
 import { CoursesView } from "@/components/lwu/CoursesView";
 
 export const metadata: Metadata = { title: "My Courses" };
-export default function CoursesPage() { return <div><Breadcrumbs current="My Courses" /><h1 className="text-3xl font-black tracking-[-.035em] text-[#0B2D5C]">My Courses</h1><p className="mt-2 text-sm text-slate-500">Explore your learning library and keep making progress.</p><CoursesView /></div>; }
+export default function CoursesPage() { return <div><Breadcrumbs current="My Courses" /><h1 className="text-2xl font-bold tracking-[-.02em] text-[#0B2D5C] sm:text-3xl">My Courses</h1><CoursesView /></div>; }

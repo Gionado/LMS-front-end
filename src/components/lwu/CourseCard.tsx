@@ -16,7 +16,7 @@ const statusLabel = { "not-started": "Not started", "in-progress": "In progress"
 
 export function CourseCard({ course, compact = false }: { course: Course; compact?: boolean }) {
   return (
-    <article className={`group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_28px_rgba(11,45,92,.06)] transition hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(11,45,92,.11)] ${compact ? "flex flex-col sm:flex-row" : ""}`}>
+    <article className={`group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-slate-300 ${compact ? "flex flex-col sm:flex-row" : ""}`}>
       <div className={`relative overflow-hidden bg-gradient-to-br ${tones[course.tone]} ${compact ? "min-h-44 sm:w-[38%]" : "h-44"}`}>
         <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full border-[22px] border-white/10" />
         <div className="absolute -bottom-12 -left-8 h-32 w-32 rotate-12 rounded-3xl bg-white/10" />
@@ -30,7 +30,7 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
             <span className={`mb-2 inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${course.status === "completed" ? "bg-emerald-50 text-emerald-700" : course.status === "not-started" ? "bg-amber-50 text-amber-700" : "bg-sky-50 text-[#155EAA]"}`}>{statusLabel[course.status]}</span>
-            <h3 className="line-clamp-2 text-base font-bold leading-snug text-[#172033]">{course.title}</h3>
+            <h3 className="line-clamp-2 text-base font-semibold leading-snug text-[#172033]">{course.title}</h3>
             <p className="mt-1 text-xs text-slate-500">with {course.instructor}</p>
           </div>
         </div>
@@ -39,7 +39,7 @@ export function CourseCard({ course, compact = false }: { course: Course; compac
           <span className="flex items-center gap-1.5"><Clock3 size={14} /> {course.duration}</span>
         </div>
         <ProgressBar value={course.progress} />
-        <Link href={`/courses/${course.id}`} className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[#0B2D5C] px-4 text-sm font-bold text-white transition hover:bg-[#155EAA] focus:outline-none focus:ring-4 focus:ring-sky-200">
+        <Link href={`/courses/${course.id}`} className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#0B2D5C] px-4 text-sm font-semibold text-white transition hover:bg-[#155EAA] focus:outline-none focus:ring-4 focus:ring-sky-200">
           {course.progress === 0 ? "Start Course" : course.progress === 100 ? "Review Course" : "Continue Course"} <Play size={14} fill="currentColor" />
         </Link>
       </div>
