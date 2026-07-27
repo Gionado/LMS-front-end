@@ -12,6 +12,8 @@ export interface Course {
   progress: number;
   status: CourseStatus;
   tone: "sky" | "navy" | "orange" | "mint" | "violet" | "rose";
+  owned: boolean;
+  price: number;
 }
 
 export interface Ebook {
@@ -22,6 +24,8 @@ export interface Ebook {
   pages: number;
   fileType: "PDF";
   tone: "sky" | "navy" | "orange" | "mint" | "violet" | "rose";
+  owned: boolean;
+  price: number;
 }
 
 export interface Purchase {

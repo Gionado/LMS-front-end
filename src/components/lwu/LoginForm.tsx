@@ -31,10 +31,9 @@ export function LoginForm() {
       <div className="absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#155EAA]/[.04]" />
 
       <section className="relative w-full max-w-[440px] rounded-2xl border border-slate-200 bg-white px-6 py-8 shadow-[0_12px_38px_rgba(15,23,42,.08)] sm:px-9 sm:py-9" aria-labelledby="login-title">
-        <div className="mb-8 flex justify-center"><BrandMark /></div>
+        <div className="mb-7 flex justify-center"><BrandMark stacked /></div>
         <div className="text-center">
           <h1 id="login-title" className="text-2xl font-bold tracking-[-.02em] text-slate-900">Sign in to your account</h1>
-          <p className="mt-2 text-sm text-slate-500">Access your Learning With Us courses.</p>
         </div>
 
         <form className="mt-7 space-y-5" onSubmit={submit} noValidate>
